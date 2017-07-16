@@ -46,4 +46,4 @@ sudo npm install -g webdriverio
 
 echo "127.0.0.1    ${NAME}.ga" >> /etc/hosts
 
-sudo npm install -g webpack
+npm install webpack webpack-dev-server -g

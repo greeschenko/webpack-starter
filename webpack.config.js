@@ -16,7 +16,7 @@ module.exports = {
                 exclude: [/node_modules/],
                 loader: "babel-loader",
                 query: {
-                    presets: ['es2015', 'react', 'stage-0', 'stage-1', 'react-hmre']
+                    presets: ['es2015', 'stage-0', 'stage-1']
                 }
             },
             {
@@ -40,7 +40,14 @@ module.exports = {
     },
     devServer: {
         host: '0.0.0.0',
-        port: '1999',
+        //port: '1999',
         disableHostCheck: true
-    }
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
+        })
+    ]
 };
