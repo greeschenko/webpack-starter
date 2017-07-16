@@ -1,9 +1,8 @@
 webpack = require('webpack');
 const path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: './src',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].js',
@@ -17,7 +16,7 @@ module.exports = {
                 exclude: [/node_modules/],
                 loader: "babel-loader",
                 query: {
-                    presets: ['es2015', 'react', 'stage-0', 'stage-1']
+                    presets: ['es2015', 'react', 'stage-0', 'stage-1', 'react-hmre']
                 }
             },
             {
@@ -26,7 +25,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!resolve-url!sass-loader?sourceMap')
+                loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]
             },
             {
                 test: /\.css$/,
@@ -34,18 +33,14 @@ module.exports = {
                 include: __dirname + '/src'
             },
             {
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!resolve-url!sass-loader?sourceMap')
-            },
-            {
                 test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
                 loader: 'file-loader'
             }
         ],
     },
-    plugins: [
-        new ExtractTextPlugin('styles.css', {
-            allChunks: true
-        })
-    ]
+    devServer: {
+        host: '0.0.0.0',
+        port: '1999',
+        disableHostCheck: true
+    }
 };
